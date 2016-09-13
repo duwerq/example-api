@@ -59,11 +59,13 @@ class TasksController < ApplicationController
     h3 = doc.css('h3').text
     links = doc.css('a')
 
+    puts links[0]['href']
     linksArray = []
 
     links.each do |x|
 
       linksArray << x['href']
+
     end
  
     @task = Task.new(h1: h1, h2: h2, h3: h3, links: linksArray, website: params[:task][:website])
