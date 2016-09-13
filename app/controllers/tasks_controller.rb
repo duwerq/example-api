@@ -47,7 +47,7 @@ class TasksController < ApplicationController
     head :no_content
   end
 
-  def scrape_webpage
+  def parse_webpage
     require 'open-uri'
     require 'json'
 
