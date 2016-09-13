@@ -52,21 +52,15 @@ class TasksController < ApplicationController
     require 'open-uri'
     require 'json'
 
-    
-
     doc = Nokogiri::HTML(open("http://theonlyobstacle.com"))
     h1 = doc.css('h1').text
     h2 = doc.css('h2').text
     h3 = doc.css('h3').text
     links = doc.css('a')
-
-    puts links[0]['href']
     linksArray = []
 
     links.each do |x|
-
       linksArray << x['href']
-
     end
  
     @task = Task.new(h1: h1, h2: h2, h3: h3, links: linksArray, website: params[:task][:website])
@@ -76,9 +70,6 @@ class TasksController < ApplicationController
     else
       render json: @task.errors, status: :unprocessable_entity
     end
-
-    
-
   
   end
 
