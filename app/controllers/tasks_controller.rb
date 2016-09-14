@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
+
   # GET /tasks
   # GET /tasks.json
   def index
@@ -13,19 +14,23 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @task = Task.find(params[:id])
-    render json: @task
+   # render json: @task
   end
+
+
+  def new
+    @task = Task.new
+  end
+
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
 
-    if @task.save
-      render json: @task, status: :created, location: @task
-    else
-      render json: @task.errors, status: :unprocessable_entity
+    if params[:task][:website]
+      parse_webpage(params[:task][:website])
     end
+   
   end
 
   # PATCH/PUT /tasks/1
@@ -48,11 +53,12 @@ class TasksController < ApplicationController
     head :no_content
   end
 
-  def parse_webpage
+  def parse_webpage(website)
     require 'open-uri'
     require 'json'
-
-    doc = Nokogiri::HTML(open("http://theonlyobstacle.com"))
+    @website = website
+   
+    doc = Nokogiri::HTML(open(@website))
     h1 = doc.css('h1').text
     h2 = doc.css('h2').text
     h3 = doc.css('h3').text
