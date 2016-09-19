@@ -1,0 +1,46 @@
+
+<h1>
+	<%= "INDEXED WEBSITE: " %>
+	<%= @task.website %>
+</h1>
+
+<hr>
+
+<h2>
+	
+	<%= "H1 CONTENT:" %>
+	<p>
+		<%= @task.h1[1..-2] %>
+	</p>
+
+	<hr>
+
+	<p>
+		<%= "H2 CONTENT:" %>
+	</p>
+	
+	<p>
+		<%= @task.h2[1..-2]%>
+	</p>
+
+	<hr>
+
+	<p>
+		<%= "H3 CONTENT:" %>
+	</p>
+	
+	<p>
+		<%= @task.h3[1..-2] %>
+	</p>
+
+	<hr>
+
+	<p>
+	<%= "PAGE LINKS:" %>
+
+		<% @task.links[1..-2].split.each do |link| %>
+			<li> <%= link_to link.gsub!( /"/, '' )[0..-2], link %> </li>
+		<% end %>
+	</p>
+
+</h2>

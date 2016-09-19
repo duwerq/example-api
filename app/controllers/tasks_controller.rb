@@ -1,3 +1,7 @@
+require 'open-uri'
+require 'json'
+require 'csv'
+
 class TasksController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
@@ -27,8 +31,8 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
 
-    if params[:task][:website]
-      parse_webpage(params[:task][:website])
+    if task_params[:website]
+      self.parse_webpage(params[:task][:website])
     end
    
   end
@@ -54,25 +58,45 @@ class TasksController < ApplicationController
   end
 
   def parse_webpage(website)
-    require 'open-uri'
-    require 'json'
+ 
     @website = website
-   
-    doc = Nokogiri::HTML(open(@website))
-    h1 = doc.css('h1').text
-    h2 = doc.css('h2').text
-    h3 = doc.css('h3').text
+    
+    if @website.downcase.include? "http://"
+      doc = Nokogiri::HTML(open(@website))
+    else
+      doc = Nokogiri::HTML(open(@website.prepend("http://")))
+    end
+
+    h1 = doc.css('h1')
+    h2 = doc.css('h2')
+    h3 = doc.css('h3')
     links = doc.css('a')
+
+    h1Array = []
+    h2Array = []
+    h3Array = []
     linksArray = []
+
+    h1.each do |x|
+      h1Array << x.text
+    end
+
+    h2.each do |x|
+      h2Array << x.text
+    end
+
+    h3.each do |x|
+      h3Array << x.text
+    end
 
     links.each do |x|
       linksArray << x['href']
     end
- 
-    @task = Task.new(h1: h1, h2: h2, h3: h3, links: linksArray, website: params[:task][:website])
+
+    @task = Task.new(h1: h1Array, h2: h2Array, h3: h3Array, links: linksArray, website: params[:task][:website])
 
     if @task.save
-      render json: @task, status: :created, location: @task
+      redirect_to(@task)
     else
       render json: @task.errors, status: :unprocessable_entity
     end
