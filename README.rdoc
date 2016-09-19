@@ -1,6 +1,6 @@
 == example-api
 
-This is a ruby on rails app that accepts a website address, indexes the h1, h2, h3 header tag along with all website links and displays the content.
+This is a ruby on rails app that accepts a website's address, indexes the h1, h2, h3 header tags along with all the website links and displays the content.
 
 == Running Locally
 
@@ -10,5 +10,5 @@ This is a ruby on rails app that accepts a website address, indexes the h1, h2, 
     rake db:create db:migrate
     rails s
 
-Your apps shouuld now be running on localhost:3000
+Your app shouuld now be running on localhost:3000
 
