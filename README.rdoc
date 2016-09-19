@@ -1,9 +1,8 @@
-== README
+== example-api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a ruby on rails app that accepts a website address, indexes the h1, h2, h3 header tag along with all website links and displays the content.
 
-Things you may want to cover:
+Running Locally
 
 * Ruby version
 
