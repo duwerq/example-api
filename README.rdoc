@@ -4,7 +4,7 @@ This is a ruby on rails app that accepts a website's address, indexes the h1, h2
 
 == Running Locally
 
-    git clone git@github.com:twolips/example-api.git
+    git clone git@github.com:duwerq/example-api.git
     cd example-api
     bundle install
     rake db:create db:migrate
