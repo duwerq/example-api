@@ -1,13 +1,10 @@
 require 'open-uri'
 require 'json'
-require 'csv'
 
 class TasksController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
-
   # GET /tasks
-  # GET /tasks.json
   def index
     @tasks = Task.all
 
@@ -15,10 +12,8 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1
-  # GET /tasks/1.json
   def show
     @task = Task.find(params[:id])
-   # render json: @task
   end
 
 
@@ -28,7 +23,6 @@ class TasksController < ApplicationController
 
 
   # POST /tasks
-  # POST /tasks.json
   def create
 
     if task_params[:website]
@@ -38,7 +32,6 @@ class TasksController < ApplicationController
   end
 
   # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
   def update
     @task = Task.find(params[:id])
 
@@ -50,7 +43,6 @@ class TasksController < ApplicationController
   end
 
   # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
     @task.destroy
 
